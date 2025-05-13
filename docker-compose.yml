@@ -1,0 +1,13 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: brawl_stars_visa
+    environment:
+      MYSQL_ROOT_PASSWORD: P@ssw0rd!
+      MYSQL_DATABASE: db_brawl_visa
+      MYSQL_USER: visa
+      MYSQL_PASSWORD: P@ssw0rd
+    volumes:
+      - ./Docker:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
