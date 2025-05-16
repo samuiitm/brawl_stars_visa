@@ -97,4 +97,26 @@ public class StarpowerDAO implements CRUD<Starpower> {
             e.printStackTrace();
         }
     }
+
+    public List<Starpower> llistarPerBrawler(int idBrawler) {
+        List<Starpower> llista = new ArrayList<>();
+        String sql = "SELECT * FROM starpowers WHERE id_brawler = ?";
+
+        try (Connection conn = ConnexioBD.getConnexio();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idBrawler);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    llista.add(new Starpower(rs.getInt("id_starpower"), rs.getString("nom"),
+                            rs.getString("descripcio"), rs.getInt("id_brawler")));
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return llista;
+    }
 }

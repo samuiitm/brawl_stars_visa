@@ -97,4 +97,27 @@ public class GadgetDAO implements CRUD<Gadget> {
             e.printStackTrace();
         }
     }
+
+    public List<Gadget> llistarPerBrawler(int idBrawler) {
+        List<Gadget> llista = new ArrayList<>();
+        String sql = "SELECT * FROM gadgets WHERE id_brawler = ?";
+
+        try (Connection conn = ConnexioBD.getConnexio();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idBrawler);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    llista.add(new Gadget(rs.getInt("id_gadget"), rs.getString("nom"),
+                            rs.getString("descripcio"), rs.getInt("id_brawler")));
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return llista;
+    }
+
 }
