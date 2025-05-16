@@ -1,17 +1,16 @@
 package Controlador;
 
 import Controlador.JSON.JsonDownloader;
-
+import Vista.Vista;
 import java.util.Scanner;
 
 public class MenuJSON {
     public static void menuJSON() {
         JsonDownloader.descarregarJson("https://api.brawlify.com/v1/brawlers", "src/resources/brawler.json");
 
-        System.out.println("1. Mostrar llista de Brawlers amb ID segons el JSON");
-        System.out.println("2. Modificar personatge segons l'endpoint amb ID");
-        System.out.println("3. Sortir");
-        System.out.print("Escolliu una opcio: ");
+        Vista.mostrarMenuJSON();
+        Vista.mostrarMissatge("Escolliu una opcio: ");
+
         Scanner scan = new Scanner(System.in);
         int n = scan.nextInt();
         switch (n) {

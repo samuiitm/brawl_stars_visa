@@ -36,9 +36,6 @@ public class JsonDownloader {
             FileWriter writer = new FileWriter(file);
             writer.write(jsonFormatejat);
             writer.close();
-
-            System.out.println("JSON descarregat i guardat correctament a " + filePath);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

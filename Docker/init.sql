@@ -19,7 +19,7 @@ CREATE TABLE classes (
 CREATE TABLE brawlers (
     id_brawler      INT UNSIGNED,
     nom             VARCHAR(30),
-    descripcio      VARCHAR(255),
+    descripcio      VARCHAR(700),
     id_rarity       INT UNSIGNED,
     id_class        INT UNSIGNED,
     CONSTRAINT pk_brawlers PRIMARY KEY (id_brawler),
@@ -32,7 +32,7 @@ CREATE TABLE brawlers (
 CREATE TABLE starpowers (
     id_starpower    INT UNSIGNED,
     nom             VARCHAR(30),
-    descripcio      VARCHAR(255),
+    descripcio      VARCHAR(700),
     id_brawler      INT UNSIGNED,
     CONSTRAINT pk_starpowers PRIMARY KEY (id_starpower),
     CONSTRAINT fk_starpowers_brawlers FOREIGN KEY (id_brawler)
@@ -42,7 +42,7 @@ CREATE TABLE starpowers (
 CREATE TABLE gadgets (
     id_gadget       INT UNSIGNED,
     nom             VARCHAR(30),
-    descripcio      VARCHAR(255),
+    descripcio      VARCHAR(700),
     id_brawler      INT UNSIGNED,
     CONSTRAINT pk_gadgets PRIMARY KEY (id_gadget),
     CONSTRAINT fk_gadgets_brawlers FOREIGN KEY (id_brawler)
