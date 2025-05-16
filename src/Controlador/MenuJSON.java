@@ -1,6 +1,8 @@
 package Controlador;
 
 import Controlador.JSON.JsonDownloader;
+import Controlador.JSON.ModificarPersonatgeJSON;
+import Controlador.JSON.MostrarContingutJSON;
 import Vista.Vista;
 import java.util.Scanner;
 
@@ -20,19 +22,19 @@ public class MenuJSON {
             //Disposarem d’un camp de tipus date que contindrà la data de la darrera actualització que s’ha fet.
             case 1:
                 // Llista dels Brawlers i el seu ID per saber quin buscar.
-
+                MostrarContingutJSON.mostrarContingut();
                 break;
             case 2:
                 // Funcio per buscar aquest personatge al JSON i després preguntar si es vol actualitzar
                 // Afegir el  cap data via BBDD amb CURDATE al UPDATE
-
+                ModificarPersonatgeJSON.modificarPersonatge();
                 break;
             case 0:
                 // Tornar
                 System.out.println("Tornant al menú principal...");
                 break;
             default:
-                System.out.println("Opcio no valida");
+                System.out.println("Opció no valida");
         }
     }
 }

@@ -1,19 +1,36 @@
-package Controlador.JSON;
+package Controlador.Endpoint;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-import java.io.FileReader;
+public class MostrarContingutEndpoint {
+    final static String API_URL = "https://api.brawlify.com/v1/brawlers";
 
-public class MostrarContingut {
     public static void mostrarContingut() {
         try {
-            FileReader reader = new FileReader("src/resources/brawler.json");
-            JsonObject root = JsonParser.parseReader(reader).getAsJsonObject();
+            // Connexió HTTP GET
+            URL url = new URL(API_URL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            // Llegir resposta
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder responseContent = new StringBuilder();
+            String line;
+            while ((line = in.readLine()) != null) {
+                responseContent.append(line);
+            }
+            in.close();
+
+            // ParseJar JSON amb Gson
+            Gson gson = new Gson();
+            JsonObject root = JsonParser.parseString(responseContent.toString()).getAsJsonObject();
             JsonArray brawlers = root.getAsJsonArray("list");
 
+            // Iterar sobre cada Brawler
             for (JsonElement element : brawlers) {
                 JsonObject brawler = element.getAsJsonObject();
 
@@ -21,13 +38,14 @@ public class MostrarContingut {
                 String rarity = brawler.getAsJsonObject("rarity").get("name").getAsString();
                 String className = brawler.getAsJsonObject("class").get("name").getAsString();
 
-                System.out.println("🚀​ Brawler: " + name);
-                System.out.println("    🎲​ Rareza: " + rarity);
-                System.out.println("    🎭​ Clase: " + className);
+                System.out.println("\uD83D\uDE80\u200B Brawler: " + name);
+                System.out.println("    \uD83C\uDFB2\u200B Rareza: " + rarity);
+                System.out.println("    \uD83C\uDFAD\u200B Clase: " + className);
 
+                // Gadgets
                 System.out.println("  🛠️ Gadgets:");
                 JsonArray gadgets = brawler.getAsJsonArray("gadgets");
-                if (gadgets == null || gadgets.isEmpty()) {
+                if (gadgets.isEmpty()) {
                     System.out.println("    (No tiene gadgets)");
                 } else {
                     for (JsonElement g : gadgets) {
@@ -36,9 +54,10 @@ public class MostrarContingut {
                     }
                 }
 
+                // Star Powers
                 System.out.println("  🌟 Star Powers:");
                 JsonArray starPowers = brawler.getAsJsonArray("starPowers");
-                if (starPowers == null || starPowers.isEmpty()) {
+                if (starPowers.isEmpty()) {
                     System.out.println("    (No tiene star powers)");
                 } else {
                     for (JsonElement s : starPowers) {
@@ -47,7 +66,7 @@ public class MostrarContingut {
                     }
                 }
 
-                System.out.println();
+                System.out.println(); // Espaciado entre brawlers
             }
 
         } catch (Exception e) {

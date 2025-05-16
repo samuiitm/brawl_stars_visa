@@ -1,4 +1,4 @@
 package Controlador.JSON.Copies;
 
-public class CopiaTotal {
+public class CopiaTotalJSON {
 }

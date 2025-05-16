@@ -9,9 +9,8 @@ import java.net.URL;
 import java.sql.*;
 import java.util.Scanner;
 
-public class ModificarPersonatge {
-
-    public static void main(String[] args) {
+public class ModificarPersonatgeEndpoint {
+    public static void modificarPersonatge() {
         try (Connection conn = ConnexioBD.getConnexio();
              Scanner sc = new Scanner(System.in)) {
 
