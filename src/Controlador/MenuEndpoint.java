@@ -24,9 +24,9 @@ public class MenuEndpoint {
                 // Afegir el cap data via BBDD amb CURDATE al UPDATE
 
                 break;
-            case 3:
-                // Sortir
-                System.out.println("Sortint...");
+            case 0:
+                // Tornar
+                System.out.println("Tornant al menú principal...");
                 break;
             default:
                 System.out.println("Opcio no valida");
