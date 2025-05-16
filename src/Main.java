@@ -1,6 +1,7 @@
 import Controlador.LlistarPersonatges;
 import Controlador.MenuEndpoint;
 import Controlador.MenuJSON;
+import Model.ReinicialitzarBaseDades;
 import Vista.Vista;
 
 import java.util.Scanner;
@@ -38,6 +39,10 @@ public class Main {
                     MenuJSON.menuJSON();
                     break;
 
+                // CAS 4: REINICIALITZAR BASE DE DADES
+                case 4:
+                    ReinicialitzarBaseDades.reinicialitzarBaseDades();
+                    break;
                 // SORTIR DEL PROGRAMA
                 case 0:
                     Vista.mostrarMissatge("Sortint del programa...");
