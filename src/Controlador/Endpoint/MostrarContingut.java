@@ -7,16 +7,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MostrarContingut {
-    final static String API_URL = "https://api.brawlapi.com/v1/brawlers";
+    final static String API_URL = "https://api.brawlify.com/v1/brawlers";
 
     public static void mostrarContingut() {
         try {
-            // Conexión HTTP GET
+            // Connexió HTTP GET
             URL url = new URL(API_URL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
-            // Leer respuesta
+            // Llegir resposta
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             StringBuilder responseContent = new StringBuilder();
             String line;
@@ -25,7 +25,7 @@ public class MostrarContingut {
             }
             in.close();
 
-            // Parsear JSON con Gson
+            // ParseJar JSON amb Gson
             Gson gson = new Gson();
             JsonObject root = JsonParser.parseString(responseContent.toString()).getAsJsonObject();
             JsonArray brawlers = root.getAsJsonArray("list");
