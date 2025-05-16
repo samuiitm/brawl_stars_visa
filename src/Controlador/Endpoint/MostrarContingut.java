@@ -7,10 +7,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MostrarContingut {
+    final static String API_URL = "https://api.brawlapi.com/v1/brawlers";
 
-    private static final String API_URL = "https://api.brawlapi.com/v1/brawlers";
-
-    public static void main(String[] args) {
+    public static void mostrarContingut() {
         try {
             // Conexión HTTP GET
             URL url = new URL(API_URL);
