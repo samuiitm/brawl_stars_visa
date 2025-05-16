@@ -1,5 +1,6 @@
 package Controlador.JSON;
 
+import Vista.Vista;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -21,33 +22,33 @@ public class MostrarContingutJSON {
                 String rarity = brawler.getAsJsonObject("rarity").get("name").getAsString();
                 String className = brawler.getAsJsonObject("class").get("name").getAsString();
 
-                System.out.println("🚀​ Brawler: " + name);
-                System.out.println("    🎲​ Rareza: " + rarity);
-                System.out.println("    🎭​ Clase: " + className);
+                Vista.mostrarMissatge("🚀​ Brawler: " + name);
+                Vista.mostrarMissatge("    🎲​ Rareza: " + rarity);
+                Vista.mostrarMissatge("    🎭​ Clase: " + className);
 
-                System.out.println("  🛠️ Gadgets:");
+                Vista.mostrarMissatge("  🛠️ Gadgets:");
                 JsonArray gadgets = brawler.getAsJsonArray("gadgets");
                 if (gadgets == null || gadgets.isEmpty()) {
-                    System.out.println("    (No tiene gadgets)");
+                    Vista.mostrarMissatge("    (No tiene gadgets)");
                 } else {
                     for (JsonElement g : gadgets) {
                         JsonObject gadget = g.getAsJsonObject();
-                        System.out.println("        - " + gadget.get("name").getAsString());
+                        Vista.mostrarMissatge("        - " + gadget.get("name").getAsString());
                     }
                 }
 
-                System.out.println("  🌟 Star Powers:");
+                Vista.mostrarMissatge("  🌟 Star Powers:");
                 JsonArray starPowers = brawler.getAsJsonArray("starPowers");
                 if (starPowers == null || starPowers.isEmpty()) {
-                    System.out.println("    (No tiene star powers)");
+                    Vista.mostrarMissatge("    (No tiene star powers)");
                 } else {
                     for (JsonElement s : starPowers) {
                         JsonObject starPower = s.getAsJsonObject();
-                        System.out.println("        - " + starPower.get("name").getAsString());
+                        Vista.mostrarMissatge("        - " + starPower.get("name").getAsString());
                     }
                 }
 
-                System.out.println();
+                Vista.mostrarMissatge("");  // Espacio entre brawlers
             }
 
         } catch (Exception e) {

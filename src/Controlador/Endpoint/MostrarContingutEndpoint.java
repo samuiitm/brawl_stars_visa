@@ -1,5 +1,6 @@
 package Controlador.Endpoint;
 
+import Vista.Vista;
 import com.google.gson.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -25,7 +26,7 @@ public class MostrarContingutEndpoint {
             }
             in.close();
 
-            // ParseJar JSON amb Gson
+            // Parsejar JSON amb Gson
             Gson gson = new Gson();
             JsonObject root = JsonParser.parseString(responseContent.toString()).getAsJsonObject();
             JsonArray brawlers = root.getAsJsonArray("list");
@@ -38,35 +39,35 @@ public class MostrarContingutEndpoint {
                 String rarity = brawler.getAsJsonObject("rarity").get("name").getAsString();
                 String className = brawler.getAsJsonObject("class").get("name").getAsString();
 
-                System.out.println("\uD83D\uDE80\u200B Brawler: " + name);
-                System.out.println("    \uD83C\uDFB2\u200B Rareza: " + rarity);
-                System.out.println("    \uD83C\uDFAD\u200B Clase: " + className);
+                Vista.mostrarMissatge("\uD83D\uDE80\u200B Brawler: " + name);
+                Vista.mostrarMissatge("    \uD83C\uDFB2\u200B Rareza: " + rarity);
+                Vista.mostrarMissatge("    \uD83C\uDFAD\u200B Clase: " + className);
 
                 // Gadgets
-                System.out.println("  🛠️ Gadgets:");
+                Vista.mostrarMissatge("  🛠️ Gadgets:");
                 JsonArray gadgets = brawler.getAsJsonArray("gadgets");
                 if (gadgets.isEmpty()) {
-                    System.out.println("    (No tiene gadgets)");
+                    Vista.mostrarMissatge("    (No tiene gadgets)");
                 } else {
                     for (JsonElement g : gadgets) {
                         JsonObject gadget = g.getAsJsonObject();
-                        System.out.println("        - " + gadget.get("name").getAsString());
+                        Vista.mostrarMissatge("        - " + gadget.get("name").getAsString());
                     }
                 }
 
                 // Star Powers
-                System.out.println("  🌟 Star Powers:");
+                Vista.mostrarMissatge("  🌟 Star Powers:");
                 JsonArray starPowers = brawler.getAsJsonArray("starPowers");
                 if (starPowers.isEmpty()) {
-                    System.out.println("    (No tiene star powers)");
+                    Vista.mostrarMissatge("    (No tiene star powers)");
                 } else {
                     for (JsonElement s : starPowers) {
                         JsonObject starPower = s.getAsJsonObject();
-                        System.out.println("        - " + starPower.get("name").getAsString());
+                        Vista.mostrarMissatge("        - " + starPower.get("name").getAsString());
                     }
                 }
 
-                System.out.println(); // Espaciado entre brawlers
+                Vista.mostrarMissatge(""); // Espaciado entre brawlers
             }
 
         } catch (Exception e) {
