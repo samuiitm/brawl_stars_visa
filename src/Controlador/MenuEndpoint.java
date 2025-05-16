@@ -1,5 +1,7 @@
 package Controlador;
 
+import Controlador.JSON.MostrarContingut;
+
 import java.util.Scanner;
 
 public class MenuEndpoint {
@@ -17,7 +19,7 @@ public class MenuEndpoint {
             //Disposarem d’un camp de tipus date que contindrà la data de la darrera actualització que s’ha fet.
             case 1:
                 // Mostrar llista de cada nom i ID dels Brawlers a l'endpoint.
-
+                MostrarContingut.mostrarContingut();
                 break;
             case 2:
                 // Escollir l'ID per agafar les dades, mostrar-les i preguntar si les volem actualitzar.
