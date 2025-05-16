@@ -1,9 +1,13 @@
 package Controlador;
 
+import Controlador.JSON.JsonDownloader;
+
 import java.util.Scanner;
 
 public class MenuJSON {
     public static void menuJSON() {
+        JsonDownloader.descarregarJson("https://api.brawlify.com/v1/brawlers", "brawlers.json");
+
         System.out.println("1. Mostrar llista de Brawlers amb ID segons el JSON");
         System.out.println("2. Modificar personatge segons l'endpoint amb ID");
         System.out.println("3. Sortir");
