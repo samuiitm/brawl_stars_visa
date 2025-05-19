@@ -15,7 +15,6 @@ public class Vista {
                            "1. Llistar personatges\n" +
                            "2. Administrar segons endpoint\n" +
                            "3. Administrar segons JSON\n" +
-                           "4. Reinicialitzar base de dades\n" +
                            "0. Sortir");
     }
 
