@@ -25,7 +25,7 @@ public class Vista {
                            "1. Mostrar contingut\n" +
                            "2. Modificar personatge\n" +
                            "3. Còpies\n" +
-                           "0. Sortir");
+                           "0. Tornar");
     }
 
     public static void mostrarMenuJSON() {
@@ -35,6 +35,15 @@ public class Vista {
                            "1. Mostrar contingut\n" +
                            "2. Modificar personatge\n" +
                            "3. Còpies\n" +
-                           "0. Sortir");
+                           "0. Tornar");
+    }
+
+    public static void mostrarMenuCopiaJSON() {
+        System.out.println("--------------------------------\n" +
+                           "------ GESTIÓ SEGONS JSON ------\n" +
+                           "--------------------------------\n" +
+                           "1. Copia parcial\n" +
+                           "2. Copia total\n" +
+                           "0. Tornar");
     }
 }

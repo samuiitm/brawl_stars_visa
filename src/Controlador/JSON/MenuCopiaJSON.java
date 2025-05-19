@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class MenuCopiaJSON {
     public static void menuCopia() {
-        Vista.mostrarMenuJSON();
+        Vista.mostrarMenuCopiaJSON();
         Vista.mostrarMissatge("Escolliu una opcio: ");
 
         Scanner scan = new Scanner(System.in);
