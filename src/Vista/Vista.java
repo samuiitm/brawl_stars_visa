@@ -4,6 +4,9 @@ public class Vista {
     public static void mostrarMissatge(String missatge) {
         System.out.println(missatge);
     }
+    public static void mostrarMissatgeFormat(String format, Object... args) {
+        System.out.printf(format, args);
+    }
     
     public static void mostrarMenuPrincipal() {
         System.out.println("--------------------------------\n" +

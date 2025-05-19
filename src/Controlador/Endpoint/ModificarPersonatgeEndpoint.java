@@ -1,6 +1,7 @@
 package Controlador.Endpoint;
 
 import Model.ConnexioBD;
+import Vista.Vista;
 import com.google.gson.*;
 
 import java.io.InputStreamReader;
@@ -21,15 +22,15 @@ public class ModificarPersonatgeEndpoint {
                      ResultSet rs = stmt.executeQuery(query)) {
 
                     while (rs.next()) {
-                        System.out.printf("[%d] %s\n", rs.getInt("id"), rs.getString("name"));
+                        Vista.mostrarMissatgeFormat("[%d] %s\n", rs.getInt("id"), rs.getString("name"));
                     }
                 }
 
-                System.out.print("\nIntrodueix l'ID del Brawler per veure info des del endpoint (0 per sortir): ");
+                Vista.mostrarMissatge("\nIntrodueix l'ID del Brawler per veure info des del endpoint (0 per sortir): ");
                 int idInput = sc.nextInt();
 
                 if (idInput == 0) {
-                    System.out.println("Sortint...");
+                    Vista.mostrarMissatge("Sortint...");
                     break;
                 }
 
@@ -55,16 +56,16 @@ public class ModificarPersonatgeEndpoint {
                 int id = brawler.get("id").getAsInt();
 
                 if (id == brawlerId) {
-                    System.out.println("\n===== DADES DEL BRAWLER =====");
-                    System.out.println("Nom: " + brawler.get("name").getAsString());
-                    System.out.println("ID: " + id);
-                    System.out.println("Raretat: " + brawler.get("rarity").getAsString());
-                    System.out.println("Descripció: " + brawler.get("description").getAsString());
+                    Vista.mostrarMissatge("\n===== DADES DEL BRAWLER =====");
+                    Vista.mostrarMissatge("Nom: " + brawler.get("name").getAsString());
+                    Vista.mostrarMissatge("ID: " + id);
+                    Vista.mostrarMissatge("Raretat: " + brawler.get("rarity").getAsString());
+                    Vista.mostrarMissatge("Descripció: " + brawler.get("description").getAsString());
                     return;
                 }
             }
 
-            System.out.println("⚠️ No s'ha trobat cap brawler amb l'ID " + brawlerId + " a l'endpoint.");
+            Vista.mostrarMissatge("No s'ha trobat cap brawler amb l'ID " + brawlerId + " a l'endpoint.");
 
         } catch (Exception e) {
             e.printStackTrace();
