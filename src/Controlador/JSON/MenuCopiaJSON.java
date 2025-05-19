@@ -2,6 +2,7 @@ package Controlador.JSON;
 
 import Controlador.JSON.Copies.CopiaParcialJSON;
 import Controlador.JSON.Copies.CopiaTotalJSON;
+import Controlador.MenuJSON;
 import Vista.Vista;
 
 import java.util.Scanner;
@@ -24,8 +25,7 @@ public class MenuCopiaJSON {
                 break;
             case 0:
                 // Tornar
-                System.out.println("Tornant al menú principal...");
-                break;
+                MenuJSON.menuJSON();
             default:
                 System.out.println("Opció no valida");
         }
