@@ -1,6 +1,7 @@
 package Controlador;
 
 import Controlador.JSON.JsonDownloader;
+import Controlador.JSON.MenuCopiaJSON;
 import Controlador.JSON.ModificarPersonatgeJSON;
 import Controlador.JSON.MostrarContingutJSON;
 import Vista.Vista;
@@ -29,6 +30,9 @@ public class MenuJSON {
                 // Afegir el  cap data via BBDD amb CURDATE al UPDATE
                 ModificarPersonatgeJSON.modificarPersonatge();
                 break;
+            case 3:
+                // Funcio per executar el menú de còpies
+                MenuCopiaJSON.menuCopia();
             case 0:
                 // Tornar
                 System.out.println("Tornant al menú principal...");
