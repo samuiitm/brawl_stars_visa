@@ -59,6 +59,7 @@ public class CopiaTotalEndpoint {
             JsonObject root = JsonParser.parseString(sb.toString()).getAsJsonObject();
             JsonArray brawlers = root.getAsJsonArray("list");
 
+            System.out.println("Copiant dades a la base de dades...");
             for (JsonElement element : brawlers) {
                 JsonObject brawlerJson = element.getAsJsonObject();
 
