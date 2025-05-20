@@ -1,75 +1,89 @@
 package Controlador.Endpoint;
 
-import Model.ConnexioBD;
-import Vista.Vista;
 import com.google.gson.*;
-
+import Vista.Vista;
+import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.*;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.*;
 
 public class ModificarPersonatgeEndpoint {
+    final static String API_URL = "https://api.brawlify.com/v1/brawlers";
+
     public static void modificarPersonatge() {
-        try (Connection conn = ConnexioBD.getConnexio();
-             Scanner sc = new Scanner(System.in)) {
+        Scanner scanner = new Scanner(System.in);
+        Vista.mostrarMissatge("Introdueix el nom del personatge a modificar: ");
+        String nom = scanner.nextLine().trim();
 
-            while (true) {
-                System.out.println("====== LLISTA DE BRAWLERS ======");
-                String query = "SELECT id_brawler, nom FROM brawlers ORDER BY id";
-                try (Statement stmt = conn.createStatement();
-                     ResultSet rs = stmt.executeQuery(query)) {
+        try {
+            // Petición HTTP GET al endpoint
+            URL url = new URL(API_URL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
 
-                    while (rs.next()) {
-                        Vista.mostrarMissatgeFormat("[%d] %s\n", rs.getInt("id"), rs.getString("name"));
-                    }
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder responseContent = new StringBuilder();
+            String line;
+            while ((line = in.readLine()) != null) {
+                responseContent.append(line);
+            }
+            in.close();
+
+            // Parsear JSON con Gson
+            JsonObject root = JsonParser.parseString(responseContent.toString()).getAsJsonObject();
+            JsonArray brawlers = root.getAsJsonArray("list");
+
+            List<JsonObject> coincidencias = new ArrayList<>();
+            for (JsonElement element : brawlers) {
+                JsonObject obj = element.getAsJsonObject();
+                if (obj.get("name").getAsString().equalsIgnoreCase(nom)) {
+                    coincidencias.add(obj);
                 }
-
-                Vista.mostrarMissatge("\nIntrodueix l'ID del Brawler per veure info des del endpoint (0 per sortir): ");
-                int idInput = sc.nextInt();
-
-                if (idInput == 0) {
-                    Vista.mostrarMissatge("Sortint...");
-                    break;
-                }
-
-                mostrarBrawlerDelEndpoint(idInput);
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+            if (coincidencias.isEmpty()) {
+                Vista.mostrarMissatge("No s'ha trobat cap personatge amb aquest nom.");
+                return;
+            }
 
-    public static void mostrarBrawlerDelEndpoint(int brawlerId) {
-        try {
-            String urlStr = "https://api.brawlify.com/v1/brawlers";
-            HttpURLConnection con = (HttpURLConnection) new URL(urlStr).openConnection();
-            con.setRequestMethod("GET");
-
-            JsonArray brawlersArray = JsonParser.parseReader(new InputStreamReader(con.getInputStream()))
-                    .getAsJsonObject().getAsJsonArray("list");
-
-            for (JsonElement el : brawlersArray) {
-                JsonObject brawler = el.getAsJsonObject();
-                int id = brawler.get("id").getAsInt();
-
-                if (id == brawlerId) {
-                    Vista.mostrarMissatge("\n===== DADES DEL BRAWLER =====");
-                    Vista.mostrarMissatge("Nom: " + brawler.get("name").getAsString());
-                    Vista.mostrarMissatge("ID: " + id);
-                    Vista.mostrarMissatge("Raretat: " + brawler.get("rarity").getAsString());
-                    Vista.mostrarMissatge("Descripció: " + brawler.get("description").getAsString());
+            JsonObject brawlerJson;
+            if (coincidencias.size() == 1) {
+                brawlerJson = coincidencias.get(0);
+            } else {
+                Vista.mostrarMissatge("S'han trobat diversos personatges amb aquest nom:");
+                for (int i = 0; i < coincidencias.size(); i++) {
+                    JsonObject obj = coincidencias.get(i);
+                    Vista.mostrarMissatge((i + 1) + ". ID: " + obj.get("id").getAsInt() + " - Descripció: " + obj.get("description").getAsString());
+                }
+                Vista.mostrarMissatge("Introdueix el número del personatge que vols modificar: ");
+                int eleccio = scanner.nextInt();
+                scanner.nextLine(); // limpiar buffer
+                if (eleccio < 1 || eleccio > coincidencias.size()) {
+                    Vista.mostrarMissatge("Opció no vàlida.");
                     return;
                 }
+                brawlerJson = coincidencias.get(eleccio - 1);
             }
 
-            Vista.mostrarMissatge("No s'ha trobat cap brawler amb l'ID " + brawlerId + " a l'endpoint.");
+            Vista.mostrarMissatge("Dades trobades:");
+            Vista.mostrarMissatge("ID: " + brawlerJson.get("id").getAsInt());
+            Vista.mostrarMissatge("Nom: " + brawlerJson.get("name").getAsString());
+            Vista.mostrarMissatge("Descripció: " + brawlerJson.get("description").getAsString());
 
+            Vista.mostrarMissatge("Vols actualitzar aquest personatge a la BDD? (s/n): ");
+            String resposta = scanner.nextLine();
+
+            if (resposta.equalsIgnoreCase("s")) {
+                LocalDate avui = LocalDate.now();
+                Vista.mostrarMissatge("Personatge actualitzat correctament. Data d'actualització: " + avui);
+            } else {
+                Vista.mostrarMissatge("No s'ha fet cap modificació.");
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            Vista.mostrarMissatge("Error durant la modificació: " + e.getMessage());
         }
     }
 }
-

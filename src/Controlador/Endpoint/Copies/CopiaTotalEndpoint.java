@@ -38,13 +38,11 @@ public class CopiaTotalEndpoint {
             stmt.execute("SET FOREIGN_KEY_CHECKS = 1");
 
             // Llamada al endpoint
-            String endpointUrl = "AQUÍ_TU_ENDPOINT"; // Sustituye por la URL real
+            String endpointUrl = "https://api.brawlify.com/v1/brawlers";
             URL url = new URL(endpointUrl);
             HttpURLConnection connHttp = (HttpURLConnection) url.openConnection();
             connHttp.setRequestMethod("GET");
             connHttp.setRequestProperty("Accept", "application/json");
-            // Si necesitas autenticación, descomenta y añade tu token:
-            // connHttp.setRequestProperty("Authorization", "Bearer TU_TOKEN");
 
             if (connHttp.getResponseCode() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : " + connHttp.getResponseCode());
