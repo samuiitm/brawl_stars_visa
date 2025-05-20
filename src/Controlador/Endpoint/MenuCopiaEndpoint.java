@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class MenuCopiaEndpoint {
     public static void menuCopia() {
-        Vista.mostrarMenuCopiaJSON();
+        Vista.mostrarMenuCopiaEndpoint();
         Vista.mostrarMissatge("Escolliu una opcio: ");
 
         Scanner scan = new Scanner(System.in);

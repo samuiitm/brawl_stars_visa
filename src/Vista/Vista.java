@@ -40,7 +40,16 @@ public class Vista {
 
     public static void mostrarMenuCopiaJSON() {
         System.out.println("--------------------------------\n" +
-                           "------ GESTIÓ SEGONS JSON ------\n" +
+                           "------ CÒPIES SEGONS JSON ------\n" +
+                           "--------------------------------\n" +
+                           "1. Copia parcial\n" +
+                           "2. Copia total\n" +
+                           "0. Tornar");
+    }
+
+    public static void mostrarMenuCopiaEndpoint() {
+        System.out.println("--------------------------------\n" +
+                           "---- CÒPIES SEGONS ENDPOINT ----\n" +
                            "--------------------------------\n" +
                            "1. Copia parcial\n" +
                            "2. Copia total\n" +
