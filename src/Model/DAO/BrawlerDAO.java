@@ -10,7 +10,8 @@ import java.util.List;
 
 public class BrawlerDAO implements CRUD<Brawler> {
     public void inserir(Brawler b) {
-        String sql = "INSERT INTO brawlers (id_brawler, nom, descripcio, id_rarity, id_class) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO brawlers (id_brawler, nom, descripcio, id_rarity, id_class) VALUES (?, ?, ?, ?, ?)" +
+                     " ON DUPLICATE KEY UPDATE nom = VALUES(nom), descripcio = VALUES(descripcio), id_rarity = VALUES(id_rarity), id_class = VALUES(id_class)";
 
         try (Connection conn = ConnexioBD.getConnexio();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

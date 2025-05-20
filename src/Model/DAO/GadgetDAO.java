@@ -10,7 +10,8 @@ import java.util.List;
 
 public class GadgetDAO implements CRUD<Gadget> {
     public void inserir(Gadget g) {
-        String sql = "INSERT INTO gadgets (id_gadget, nom, descripcio, id_brawler) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO gadgets (id_gadget, nom, descripcio, id_brawler) VALUES (?, ?, ?, ?)" +
+                     " ON DUPLICATE KEY UPDATE nom = VALUES(nom), descripcio = VALUES(descripcio), id_brawler = VALUES(id_brawler)";
 
         try (Connection conn = ConnexioBD.getConnexio();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

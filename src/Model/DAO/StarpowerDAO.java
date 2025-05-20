@@ -10,7 +10,8 @@ import java.util.List;
 
 public class StarpowerDAO implements CRUD<Starpower> {
     public void inserir(Starpower s) {
-        String sql = "INSERT INTO starpowers (id_starpower, nom, descripcio, id_brawler) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO starpowers (id_starpower, nom, descripcio, id_brawler) VALUES (?, ?, ?, ?)" +
+                     " ON DUPLICATE KEY UPDATE nom = VALUES(nom), descripcio = VALUES(descripcio), id_brawler = VALUES(id_brawler)";
 
         try (Connection conn = ConnexioBD.getConnexio();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

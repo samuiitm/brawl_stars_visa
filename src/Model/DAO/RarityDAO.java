@@ -10,7 +10,8 @@ import java.util.List;
 
 public class RarityDAO implements CRUD<Rarity> {
     public void inserir(Rarity r) {
-        String sql = "INSERT INTO rarities (id_rarity, nom) VALUES (?, ?)";
+        String sql = "INSERT INTO rarities (id_rarity, nom) VALUES (?, ?)" +
+                     " ON DUPLICATE KEY UPDATE nom = VALUES(nom)";
 
         try (Connection conn = ConnexioBD.getConnexio();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

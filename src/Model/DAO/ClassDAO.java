@@ -10,7 +10,8 @@ import java.util.List;
 
 public class ClassDAO implements CRUD<Class> {
     public void inserir(Class c) {
-        String sql = "INSERT INTO classes (id_class, nom) VALUES (?, ?)";
+        String sql = "INSERT INTO classes (id_class, nom) VALUES (?, ?)" +
+                     " ON DUPLICATE KEY UPDATE nom = VALUES(nom)";
 
         try (Connection conn = ConnexioBD.getConnexio();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
