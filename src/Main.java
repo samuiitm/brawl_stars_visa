@@ -1,3 +1,4 @@
+import Controlador.ExistenBrawlers;
 import Controlador.LlistarPersonatges;
 import Controlador.MenuEndpoint;
 import Controlador.MenuJSON;
@@ -37,6 +38,12 @@ Main {
                 // CAS 3: MENÚ ADMINISTRAR SEGONS JSON
                 case 3:
                     MenuJSON.menuJSON();
+                    break;
+
+                // CAS 4: COMPROVACIÓ BRAWLER
+                case 4:
+                    // Aquí es pot afegir la funcionalitat de comprovació de brawlers
+                    ExistenBrawlers.existenBrawlers();
                     break;
 
                 // SORTIR DEL PROGRAMA
